@@ -1,0 +1,10 @@
+begin
+  a = 1;
+  b = 2;
+  if (a < b) then
+    c = 20;
+  else
+    c = 30;
+  endif;
+  c = 100;
+end;

@@ -72,10 +72,11 @@
  #include <stdlib.h>
  #include <stdio.h>
  #include "../generator.h"
+ #include "../evaluator/evaluator.h"
  int yylex(void);
  void yyerror(char const *s);
 
-#line 79 "y.tab.c"
+#line 80 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -152,11 +153,11 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 9 "ast.y"
+#line 10 "ast.y"
 
   struct tnode *no;
 
-#line 160 "y.tab.c"
+#line 161 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -587,8 +588,8 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    20,    20,    29,    31,    32,    34,    34,    34,    35,
-      36,    37,    39,    40,    41,    42,    43,    44,    45
+       0,    21,    21,    32,    34,    35,    37,    37,    37,    38,
+      39,    40,    42,    43,    44,    45,    46,    47,    48
 };
 #endif
 
@@ -1166,92 +1167,94 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: BEGN Slist END  */
-#line 21 "ast.y"
+#line 22 "ast.y"
         {
           (yyval.no) = (yyvsp[-1].no);
-          FILE *fp;
-          fp = fopen("out.xsm", "w");
-          startCodeGen((yyval.no), fp);
+          // FILE *fp;
+          // fp = fopen("out.xsm", "w");
+          // startCodeGen($$, fp);
+
+          evaluate((yyval.no));
 
           exit(1);
         }
-#line 1179 "y.tab.c"
+#line 1182 "y.tab.c"
     break;
 
   case 4: /* Slist: Slist Stmt  */
-#line 31 "ast.y"
+#line 34 "ast.y"
                    {(yyval.no) = makeConnecterNode((yyvsp[-1].no), (yyvsp[0].no));}
-#line 1185 "y.tab.c"
+#line 1188 "y.tab.c"
     break;
 
   case 5: /* Slist: Stmt  */
-#line 32 "ast.y"
+#line 35 "ast.y"
              {(yyval.no) = (yyvsp[0].no);}
-#line 1191 "y.tab.c"
+#line 1194 "y.tab.c"
     break;
 
   case 9: /* InputStmt: READ '(' ID ')' ';'  */
-#line 35 "ast.y"
+#line 38 "ast.y"
                                {(yyval.no) = makeReadNode((yyvsp[-2].no));}
-#line 1197 "y.tab.c"
+#line 1200 "y.tab.c"
     break;
 
   case 10: /* OutputStmt: WRITE '(' expr ')' ';'  */
-#line 36 "ast.y"
+#line 39 "ast.y"
                                    {(yyval.no) = makeWriteNode((yyvsp[-2].no));}
-#line 1203 "y.tab.c"
+#line 1206 "y.tab.c"
     break;
 
   case 11: /* AssignStmt: ID '=' expr ';'  */
-#line 37 "ast.y"
+#line 40 "ast.y"
                             {(yyval.no) = makeAssgNode((yyvsp[-3].no), (yyvsp[-1].no));}
-#line 1209 "y.tab.c"
+#line 1212 "y.tab.c"
     break;
 
   case 12: /* expr: expr PLUS expr  */
-#line 39 "ast.y"
+#line 42 "ast.y"
                        {(yyval.no) = makeOperatorNode('+',(yyvsp[-2].no),(yyvsp[0].no));}
-#line 1215 "y.tab.c"
+#line 1218 "y.tab.c"
     break;
 
   case 13: /* expr: expr MINUS expr  */
-#line 40 "ast.y"
+#line 43 "ast.y"
                       {(yyval.no) = makeOperatorNode('-',(yyvsp[-2].no),(yyvsp[0].no));}
-#line 1221 "y.tab.c"
+#line 1224 "y.tab.c"
     break;
 
   case 14: /* expr: expr MUL expr  */
-#line 41 "ast.y"
+#line 44 "ast.y"
                   {(yyval.no) = makeOperatorNode('*',(yyvsp[-2].no),(yyvsp[0].no));}
-#line 1227 "y.tab.c"
+#line 1230 "y.tab.c"
     break;
 
   case 15: /* expr: expr DIV expr  */
-#line 42 "ast.y"
+#line 45 "ast.y"
                   {(yyval.no) = makeOperatorNode('/',(yyvsp[-2].no),(yyvsp[0].no));}
-#line 1233 "y.tab.c"
+#line 1236 "y.tab.c"
     break;
 
   case 16: /* expr: '(' expr ')'  */
-#line 43 "ast.y"
+#line 46 "ast.y"
                   {(yyval.no) = (yyvsp[-1].no);}
-#line 1239 "y.tab.c"
+#line 1242 "y.tab.c"
     break;
 
   case 17: /* expr: NUM  */
-#line 44 "ast.y"
+#line 47 "ast.y"
           {(yyval.no) = (yyvsp[0].no);}
-#line 1245 "y.tab.c"
+#line 1248 "y.tab.c"
     break;
 
   case 18: /* expr: ID  */
-#line 45 "ast.y"
+#line 48 "ast.y"
           {(yyval.no) = (yyvsp[0].no);}
-#line 1251 "y.tab.c"
+#line 1254 "y.tab.c"
     break;
 
 
-#line 1255 "y.tab.c"
+#line 1258 "y.tab.c"
 
       default: break;
     }
@@ -1444,7 +1447,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 48 "ast.y"
+#line 51 "ast.y"
 
 
 void yyerror(char const *s)

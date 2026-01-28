@@ -103,11 +103,14 @@ reg_index codeGen(struct tnode *t, FILE *fp) {
 
 void generateExitCode(FILE *fp) {
   reg_index reg = getReg();
+  
   fprintf(fp, "MOV R%d, \"Exit\"\n", reg);
   for (int i=0; i<5; i++) {
     fprintf(fp, "PUSH R%d\n", reg);
   }
   fprintf(fp, "CALL 0\n");
+
+  freeReg();
 }
 
 reg_index generateOpCode(struct tnode *t, FILE *fp, reg_index leftReg,

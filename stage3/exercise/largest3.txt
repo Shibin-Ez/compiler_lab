@@ -1,0 +1,13 @@
+begin
+  read (a);
+  read (b);
+  read (c);
+  l = a;
+  if (b > l) then
+    l = b;
+  endif;
+  if (c > l) then
+    l = c;
+  endif;
+  write (l);
+end

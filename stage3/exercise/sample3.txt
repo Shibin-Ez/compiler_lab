@@ -1,0 +1,8 @@
+begin
+  a = 1;
+  b = 2;
+  if (a > b) then
+    a = b;
+  endif;
+  b = 100;
+end;

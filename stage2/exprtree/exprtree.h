@@ -9,7 +9,4 @@ struct tnode *makeConstantLeafNode(int n);
 /*Make a tnode with opertor, left and right branches set*/
 struct tnode *makeOperatorNode(char c, struct tnode *l, struct tnode *r);
 
-/*To evaluate an expression tree*/
-int evaluate(struct tnode *t, FILE *fp);
-
 #endif /* EXPRTREE_H */

@@ -1,0 +1,7 @@
+0
+L1:
+MOV R0, 5
+JMP L10
+L2:
+ADD R0, R1
+L10:

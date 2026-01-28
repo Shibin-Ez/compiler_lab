@@ -2,6 +2,7 @@
  #include <stdlib.h>
  #include <stdio.h>
  #include "../generator.h"
+ #include "../evaluator/evaluator.h"
  int yylex(void);
  void yyerror(char const *s);
 %}
@@ -20,9 +21,11 @@
 program : BEGN Slist END
         {
           $$ = $2;
-          FILE *fp;
-          fp = fopen("out.xsm", "w");
-          startCodeGen($$, fp);
+          // FILE *fp;
+          // fp = fopen("out.xsm", "w");
+          // startCodeGen($$, fp);
+
+          evaluate($$);
 
           exit(1);
         }
