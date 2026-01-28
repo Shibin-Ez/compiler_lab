@@ -120,3 +120,27 @@ struct tnode *makeContinueLeafNode() {
   temp->right = NULL;
   return temp;
 }
+
+struct tnode *makeRepeatNode(struct tnode *l, struct tnode *r) {
+  struct tnode *temp;
+  temp = (struct tnode *)malloc(sizeof(struct tnode));
+  temp->varname = NULL;
+  temp->type = VOID_TYPE;
+  temp->nodetype = REPEAT_NODE;
+  temp->left = l;
+  temp->mid = NULL;
+  temp->right = r;
+  return temp;
+}
+
+struct tnode *makeDoWhileNode(struct tnode *l, struct tnode *r) {
+  struct tnode *temp;
+  temp = (struct tnode *)malloc(sizeof(struct tnode));
+  temp->varname = NULL;
+  temp->type = VOID_TYPE;
+  temp->nodetype = DOWHILE_NODE;
+  temp->left = l;
+  temp->mid = NULL;
+  temp->right = r;
+  return temp;
+}

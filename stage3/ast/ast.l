@@ -26,10 +26,13 @@
             yylval.no = makeBreakLeafNode();
             return BREAK;
         }
-"continue" { 
-            yylval.no = makeContinueLeafNode();
-            return CONTINUE;
-        }
+"continue"  { 
+                yylval.no = makeContinueLeafNode();
+                return CONTINUE;
+            }
+"repeat" { return REPEAT; }
+"until" { return UNTIL; }
+
 [a-z] {
           yylval.no = makeVariableLeafNode(yytext);
            return ID; 

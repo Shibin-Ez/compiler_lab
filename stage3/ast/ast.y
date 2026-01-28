@@ -11,8 +11,9 @@
   struct tnode *no;
 }
 %type <no> program Slist Stmt InputStmt OutputStmt AssignStmt IfStmt WhileStmt expr
-%type <no> BreakStmt ContStmt 
+%type <no> BreakStmt ContStmt RepeatStmt DoWhileStmt
 %token <no> BEGN READ WRITE NUM ID END IF THEN ELSE ENDIF WHILE DO ENDWHILE BREAK CONTINUE
+%token REPEAT UNTIL
 %token PLUS MINUS MUL DIV GT LT GTE LTE NEQ EQ 
 %left PLUS MINUS
 %left MUL DIV
@@ -35,7 +36,8 @@ program : BEGN Slist END
 Slist : Slist Stmt {$$ = makeConnecterNode($1, $2);}
       | Stmt {$$ = $1;}
       ;
-Stmt : InputStmt | OutputStmt | AssignStmt | IfStmt | WhileStmt | BreakStmt | ContStmt;
+Stmt : InputStmt | OutputStmt | AssignStmt | IfStmt | WhileStmt | BreakStmt | ContStmt 
+     | RepeatStmt | DoWhileStmt;
 InputStmt: READ '(' ID ')' ';' {$$ = makeReadNode($3);};
 OutputStmt: WRITE '(' expr ')' ';' {$$ = makeWriteNode($3);};
 AssignStmt: ID '=' expr ';' {$$ = makeAssgNode($1, $3);};
@@ -45,6 +47,8 @@ IfStmt: IF '(' expr ')' THEN Slist ELSE Slist ENDIF ';' {$$ = makeIfElseNode($3,
 WhileStmt: WHILE '(' expr ')' DO Slist ENDWHILE ';' {$$ = makeWhileNode($3, $6);}
 BreakStmt: BREAK ';' {$$ = $1;}
 ContStmt: CONTINUE ';' {$$ = $1;}
+RepeatStmt: REPEAT Slist UNTIL '(' expr ')' ';' {$$ = makeRepeatNode($2, $5);}
+DoWhileStmt: DO Slist WHILE '(' expr ')' ';' {$$ = makeDoWhileNode($2, $5);}
 
 expr : expr PLUS expr  {$$ = makeOperatorNode("+",$1,$3);}
   | expr MINUS expr   {$$ = makeOperatorNode("-",$1,$3);}

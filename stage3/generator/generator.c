@@ -19,6 +19,8 @@ void generateWriteCode(struct tnode *t, FILE *fp, reg_index regToPrint);
 void generateWhileCode(struct tnode *t, FILE *fp);
 void generateIfCode(struct tnode *t, FILE *fp, int entryLabel, int exitLabel);
 void generateIfElseCode(struct tnode *t, FILE *fp, int entryLabel, int exitLabel);
+void generateRepeatCode(struct tnode *t, FILE *fp);
+void generateDoWhileCode(struct tnode *t, FILE *fp);
 
 int getReg() {
   if (registerPtr < 20) {
@@ -121,6 +123,15 @@ reg_index codeGen(struct tnode *t, FILE *fp, int entryLabel, int exitLabel) {
   case CONTINUE_NODE: {
     if (entryLabel != -1)
       fprintf(fp, "JMP L%d\n", entryLabel);
+    return -1;
+  }
+  case REPEAT_NODE: {
+    generateRepeatCode(t, fp);
+    return -1;
+  }
+  case DOWHILE_NODE: {
+    generateDoWhileCode(t, fp);
+    return -1;
   }
   default:
     return -1;
@@ -331,4 +342,58 @@ void generateIfElseCode(struct tnode *t, FILE *fp, int entryLabel, int exitLabel
 
   // Print label_endif, as it is the end if the whole if-else block
   fprintf(fp, "L%d:\n", label_endif);
+}
+
+void generateRepeatCode(struct tnode *t, FILE *fp) {
+  assert(t != NULL);
+  assert(t->nodetype == REPEAT_NODE);
+  assert(t->right != NULL);
+
+  int label_startrepeat = getLabel();
+  int label_endrepeat = getLabel();
+
+  // start the label for while loop
+  fprintf(fp, "L%d:\n", label_startrepeat);
+
+  // code for stmt list inside the while block
+  codeGen(t->left, fp, label_startrepeat, label_endrepeat);
+
+  // compute the condition
+  reg_index conditionReg = codeGen(t->right, fp, -1, -1);
+
+  // Jump to label_endrepeat if condition is false
+  fprintf(fp, "JZ R%d, L%d\n", conditionReg, label_endrepeat);
+
+  // Jump back to label_startrepeat as one iteration of the loop is over
+  fprintf(fp, "JMP L%d\n", label_startrepeat);
+
+  // Print label_endrepeat as the above line marks the end of the loop
+  fprintf(fp, "L%d:\n", label_endrepeat);
+}
+
+void generateDoWhileCode(struct tnode *t, FILE *fp) {
+  assert(t != NULL);
+  assert(t->nodetype == DOWHILE_NODE);
+  assert(t->right != NULL);
+
+  int label_startdowhile = getLabel();
+  int label_enddowhile = getLabel();
+
+  // start the label for while loop
+  fprintf(fp, "L%d:\n", label_startdowhile);
+
+  // code for stmt list inside the while block
+  codeGen(t->left, fp, label_startdowhile, label_enddowhile);
+
+  // compute the condition
+  reg_index conditionReg = codeGen(t->right, fp, -1, -1);
+
+  // Jump to label_enddowhile if condition is false
+  fprintf(fp, "JZ R%d, L%d\n", conditionReg, label_enddowhile);
+
+  // Jump back to label_startdowhile as one iteration of the loop is over
+  fprintf(fp, "JMP L%d\n", label_startdowhile);
+
+  // Print label_enddowhile as the above line marks the end of the loop
+  fprintf(fp, "L%d:\n", label_enddowhile);
 }

@@ -3,10 +3,13 @@
 # parse arguments
 filename=""
 run_flag=false
+debug_flag=false
 
 for arg in "$@"; do
     if [ "$arg" = "--run" ]; then
         run_flag=true
+    elif [ "$arg" = "--debug" ]; then
+        debug_flag=true
     else
         filename=$arg
     fi
@@ -38,4 +41,10 @@ cp out.xsm ../..
 if [ "$run_flag" = true ]; then
     cd ../..
     ./xsm -l library.lib -e out.xsm
+fi
+
+# run in debug mode if --debug flag is provided
+if [ "$debug_flag" = true ]; then
+    cd ../..
+    ./xsm -l library.lib -e out.xsm --debug
 fi

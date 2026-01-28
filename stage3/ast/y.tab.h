@@ -69,16 +69,18 @@ extern int yydebug;
     ENDWHILE = 270,                /* ENDWHILE  */
     BREAK = 271,                   /* BREAK  */
     CONTINUE = 272,                /* CONTINUE  */
-    PLUS = 273,                    /* PLUS  */
-    MINUS = 274,                   /* MINUS  */
-    MUL = 275,                     /* MUL  */
-    DIV = 276,                     /* DIV  */
-    GT = 277,                      /* GT  */
-    LT = 278,                      /* LT  */
-    GTE = 279,                     /* GTE  */
-    LTE = 280,                     /* LTE  */
-    NEQ = 281,                     /* NEQ  */
-    EQ = 282                       /* EQ  */
+    REPEAT = 273,                  /* REPEAT  */
+    UNTIL = 274,                   /* UNTIL  */
+    PLUS = 275,                    /* PLUS  */
+    MINUS = 276,                   /* MINUS  */
+    MUL = 277,                     /* MUL  */
+    DIV = 278,                     /* DIV  */
+    GT = 279,                      /* GT  */
+    LT = 280,                      /* LT  */
+    GTE = 281,                     /* GTE  */
+    LTE = 282,                     /* LTE  */
+    NEQ = 283,                     /* NEQ  */
+    EQ = 284                       /* EQ  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -102,16 +104,18 @@ extern int yydebug;
 #define ENDWHILE 270
 #define BREAK 271
 #define CONTINUE 272
-#define PLUS 273
-#define MINUS 274
-#define MUL 275
-#define DIV 276
-#define GT 277
-#define LT 278
-#define GTE 279
-#define LTE 280
-#define NEQ 281
-#define EQ 282
+#define REPEAT 273
+#define UNTIL 274
+#define PLUS 275
+#define MINUS 276
+#define MUL 277
+#define DIV 278
+#define GT 279
+#define LT 280
+#define GTE 281
+#define LTE 282
+#define NEQ 283
+#define EQ 284
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -121,7 +125,7 @@ union YYSTYPE
 
   struct tnode *no;
 
-#line 125 "y.tab.h"
+#line 129 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

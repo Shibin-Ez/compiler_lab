@@ -19,6 +19,8 @@
 #define WHILE_NODE 9 // While
 #define BREAK_NODE 10 // Break
 #define CONTINUE_NODE 11 // Continue
+#define REPEAT_NODE 12 // Repeat-Until
+#define DOWHILE_NODE 13 // Do-While
 
 typedef struct tnode {
   int val;       // value of a number for NUM nodes.
@@ -39,6 +41,8 @@ struct tnode *makeIfElseNode(struct tnode *l, struct tnode* m, struct tnode *r);
 struct tnode *makeWhileNode(struct tnode *l, struct tnode *r);
 struct tnode *makeBreakLeafNode();
 struct tnode *makeContinueLeafNode();
+struct tnode *makeRepeatNode(struct tnode *l, struct tnode *r);
+struct tnode *makeDoWhileNode(struct tnode *l, struct tnode *r);
 
 /*Create a node tnode*/
 struct tnode *createTree(int val, int type, char *c, struct tnode *l,

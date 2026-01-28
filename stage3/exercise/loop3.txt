@@ -1,0 +1,15 @@
+begin
+  a = 1;
+  s = 0;
+  repeat
+    read (a);
+    if (a == 3) then
+      continue;
+    endif;
+    s = s + a;
+    if (s == 10) then
+      break;
+    endif;
+  until (a != 0);
+  write (s);
+end
