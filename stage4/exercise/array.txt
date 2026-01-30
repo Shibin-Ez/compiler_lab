@@ -1,0 +1,11 @@
+decl
+  int num, sum, arr[10];
+  str mesg;
+enddecl
+
+read(num);
+sum = 0;
+arr[2] = 100;
+num = arr[2];
+write(arr[2]);
+write(mesg);

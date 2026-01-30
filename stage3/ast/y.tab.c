@@ -1319,7 +1319,7 @@ yyreduce:
 
   case 4: /* Slist: Slist Stmt  */
 #line 36 "ast.y"
-                   {(yyval.no) = makeConnecterNode((yyvsp[-1].no), (yyvsp[0].no));}
+                   {(yyval.no) = makeConnectorNode((yyvsp[-1].no), (yyvsp[0].no));}
 #line 1324 "y.tab.c"
     break;
 

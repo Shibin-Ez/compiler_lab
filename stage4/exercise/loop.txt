@@ -1,0 +1,9 @@
+decl
+ int num, sum;
+ str mesg;
+enddecl
+mesg = "hello all";
+sum = 30;
+write(mesg);
+read(sum);
+write(sum);

@@ -1170,11 +1170,11 @@ yyreduce:
 #line 22 "ast.y"
         {
           (yyval.no) = (yyvsp[-1].no);
-          // FILE *fp;
-          // fp = fopen("out.xsm", "w");
-          // startCodeGen($$, fp);
+          FILE *fp;
+          fp = fopen("out.xsm", "w");
+          startCodeGen((yyval.no), fp);
 
-          evaluate((yyval.no));
+          // evaluate($$);
 
           exit(1);
         }
@@ -1183,7 +1183,7 @@ yyreduce:
 
   case 4: /* Slist: Slist Stmt  */
 #line 34 "ast.y"
-                   {(yyval.no) = makeConnecterNode((yyvsp[-1].no), (yyvsp[0].no));}
+                   {(yyval.no) = makeConnectorNode((yyvsp[-1].no), (yyvsp[0].no));}
 #line 1188 "y.tab.c"
     break;
 

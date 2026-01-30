@@ -21,17 +21,17 @@
 program : BEGN Slist END
         {
           $$ = $2;
-          // FILE *fp;
-          // fp = fopen("out.xsm", "w");
-          // startCodeGen($$, fp);
+          FILE *fp;
+          fp = fopen("out.xsm", "w");
+          startCodeGen($$, fp);
 
-          evaluate($$);
+          // evaluate($$);
 
-          exit(1);
+          exit(0);
         }
         | BEGN END
         ;
-Slist : Slist Stmt {$$ = makeConnecterNode($1, $2);}
+Slist : Slist Stmt {$$ = makeConnectorNode($1, $2);}
       | Stmt {$$ = $1;}
       ;
 Stmt : InputStmt | OutputStmt | AssignStmt;

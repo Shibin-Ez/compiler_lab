@@ -33,7 +33,7 @@ program : BEGN Slist END
         }
         | BEGN END
         ;
-Slist : Slist Stmt {$$ = makeConnecterNode($1, $2);}
+Slist : Slist Stmt {$$ = makeConnectorNode($1, $2);}
       | Stmt {$$ = $1;}
       ;
 Stmt : InputStmt | OutputStmt | AssignStmt | IfStmt | WhileStmt | BreakStmt | ContStmt 

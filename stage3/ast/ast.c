@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct tnode *makeConnecterNode(struct tnode *l, struct tnode *r) {
+struct tnode *makeConnectorNode(struct tnode *l, struct tnode *r) {
   struct tnode *temp;
   temp = (struct tnode *)malloc(sizeof(struct tnode));
   temp->varname = NULL;

@@ -22,7 +22,7 @@ typedef struct tnode {
   struct tnode *left, *right; // left and right branches
 } tnode;
 
-struct tnode *makeConnecterNode(struct tnode *l, struct tnode *r);
+struct tnode *makeConnectorNode(struct tnode *l, struct tnode *r);
 struct tnode *makeAssgNode(struct tnode *l, struct tnode *r);
 struct tnode *makeReadNode(struct tnode *l);
 struct tnode *makeWriteNode(struct tnode *l);
